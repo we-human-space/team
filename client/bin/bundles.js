@@ -8,7 +8,6 @@ const project_config = require('../config/project.config.js');
 const webpack_config = require('../config/webpack.config.js');
 
 const __PROD__ = project_config.globals.__PROD__;
-console.log(__PROD__);
 
 let revisionedAssetManifest =
   fs.readJsonSync(project_config.paths.public(project_config.manifestFileName), {throws: false}) || {};

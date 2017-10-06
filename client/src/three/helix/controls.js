@@ -1,3 +1,5 @@
+import clone_deep from 'lodash/cloneDeep';
+
 class Controls {
   constructor(helix){
     this.helix = helix;
@@ -30,8 +32,9 @@ class Controls {
   }
 
   redraw() {
-    for(let k in this.model){
-      this.helix[k] = this.model[k];
+    let model = clone_deep(this.model);
+    for(let k in model){
+      this.helix[k] = model[k];
     }
     this.helix.redraw(this.model.animation.animate);
   }

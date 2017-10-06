@@ -43,7 +43,7 @@ class Helix {
         };
     let animation = options.animation;
     this.animation = {
-      active: true,
+      animate: false,
       delay: typeof animation === 'object' && typeof animation.delay === 'number'
         ? animation.delay
         : 10,
@@ -62,10 +62,8 @@ class Helix {
     }
   }
 
-  get animate() { return this.animation.active; }
-
   set animate(animate) {
-    this.animation.active = !!animate;
+    this.animation.animate = !!animate;
     if(animate) {
       this.animator.activate(this);
     }
@@ -135,7 +133,6 @@ class Helix {
 
 
   redraw(animate){
-    this.animate = animate;
     this.points = [];
     this._generatePoints();
     if(animate){

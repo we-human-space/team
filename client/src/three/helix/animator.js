@@ -24,7 +24,7 @@ class HelixAnimator {
   animate(helix, type) {
     var animation = {
       type: type || ANIMATIONS.DEFAULT,
-      delay: helix.delay,
+      delay: helix.animation.delay,
       progress: {
         strand: 0,
         i: helix.animation.startPosition === START_POSITIONS.TOP ? helix.numberOfPoints - 1 : 0
@@ -59,7 +59,7 @@ class HelixAnimator {
         return;
       }
 
-      if(!helix.animate){
+      if(!helix.animation.animate){
         animation.cb = () => {
           animation.cb = null;
           draw_point(animation);
