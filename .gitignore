@@ -57,5 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+# build files
+public
+
 # MacOS Filesystem
 .DS_Store
