@@ -1,11 +1,9 @@
 // import 'babel-polyfill';
 import Stats from 'stats.js';
+import GUI from './gui';
 import Helix from './three/helix/helix';
-import HelixControls from './three/helix/controls';
-import HelixControlsView from './three/helix/controls-view';
 
 const THREE = require('three');
-
 const OrbitControls = require('three-orbit-controls')(THREE);
 
 function main() {
@@ -26,11 +24,6 @@ function main() {
   var ambientLight = new THREE.AmbientLight(0x0c0c0c);
   scene.add(ambientLight);
 
-  // var spotLight = new THREE.SpotLight(0xffffff, 2);
-  // spotLight.position.set(0, 60, 10);
-  // spotLight.castShadow = true;
-  // scene.add(spotLight);
-
   // add the output of the renderer to the html element
   document.getElementById('three-container').appendChild(webGLRenderer.domElement);
 
@@ -47,7 +40,8 @@ function main() {
   if(__DEV__){
     var stats = initStats();
     /* eslint-disable no-unused-vars */
-    var gui = new HelixControlsView(new HelixControls(helix));
+    var gui = new GUI();
+    gui.addSubmodule('Helix', helix);
     /* eslint-enable no-unused-vars */
   }
 

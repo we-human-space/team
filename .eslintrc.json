@@ -31,7 +31,8 @@
             "from": {"after": true, "before": true},
             "function": {"after": true, "before": true},
             "import": {"after": true},
-            "return": {"after": true, "before": true}
+            "return": {"after": true, "before": true},
+            "this": {"before": true}
           }
         }],
         "space-before-blocks": [0, "never"],
@@ -41,6 +42,7 @@
         "linebreak-style": ["error", "unix"],
         "semi": ["error", "always"],
         "no-unused-vars": ["warn"],
-        "no-console": 0
+        "no-console": 0,
+        "no-return-assign": 0
     }
 }

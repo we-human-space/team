@@ -1,6 +1,6 @@
 import clone_deep from 'lodash/cloneDeep';
 
-class Controls {
+class HelixProxy {
   constructor(helix){
     this.helix = helix;
     this.model = {
@@ -74,4 +74,4 @@ class Controls {
   }
 }
 
-export default Controls;
+export default HelixProxy;
