@@ -1,4 +1,4 @@
-import THREE from 'three.js';
+const THREE = require('three');
 
 export const ANIMATIONS = {
   DEFAULT: 'DEFAULT',
@@ -38,9 +38,6 @@ class HelixAnimator {
     case ANIMATIONS.DEFAULT:
       this.default_animation(helix, animation, this.animations.length - 1);
       break;
-    case ANIMATIONS.PARTICLES:
-      this.particles_animation(helix, animation, this.animations.length - 1);
-      break;
     default:
       this.default_animation(helix, animation, this.animations.length - 1);
       break;
@@ -78,10 +75,6 @@ class HelixAnimator {
       }
       setTimeout(() => draw_point(animation), animation.delay);
     }
-  }
-
-  particles_animation(helix, animation, animation_index) {
-
   }
 }
 

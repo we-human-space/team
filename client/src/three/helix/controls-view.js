@@ -12,6 +12,10 @@ class ControlsView {
     gui.helix.structure.add(controls.model, 'density', 0, 500);
     gui.helix.structure.add(controls.model, 'spread', 0, 10);
     gui.helix.structure.add(controls.model, 'phase', 0, 10);
+    gui.helix.particles = gui.helix.addFolder('particles');
+    gui.helix.particles.add(controls.model.particleOptions, 'type', ['CUBE', 'SPRITE']);
+    gui.helix.particles.add(controls.model.particleOptions, 'wobbling', 0, 5);
+    gui.helix.particles.add(controls.model.particleOptions.rotation, 'step', 0, 0.5, 'rotation step');
     gui.helix.position = gui.helix.addFolder('position');
     gui.helix.position.add(controls.model.position, 'x', 0, 10);
     gui.helix.position.add(controls.model.position, 'y', 0, 10);
@@ -22,7 +26,7 @@ class ControlsView {
     gui.helix.animation.add(controls.model.animation, 'startPosition', START_POSITIONS);
     gui.helix.animation.add(controls.model.animation, 'animate').onChange(() => { controls.helix.animate = controls.model.animation.animate; });
     gui.helix.revolution = gui.helix.addFolder('revolution');
-    gui.helix.revolution.add(controls.model.revolution, 'x', -0.1, 0.1).onChange(() => controls.updateRevolution());
+    gui.helix.revolution.add(controls.model.revolution, 'x', -0.1, 1).onChange(() => controls.updateRevolution());
     gui.helix.revolution.add(controls.model.revolution, 'y', -0.1, 0.1).onChange(() => controls.updateRevolution());
     gui.helix.revolution.add(controls.model.revolution, 'z', -0.1, 0.1).onChange(() => controls.updateRevolution());
     gui.helix.revolution.add(controls.model.revolution, 'stop').onChange(() => controls.updateRevolution());

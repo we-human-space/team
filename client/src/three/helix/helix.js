@@ -1,15 +1,19 @@
-import THREE from 'three.js';
-import HelixAnimator, { START_POSITIONS } from './animator.js';
+import HelixAnimator, { START_POSITIONS } from './animator';
+import { PARTICLE_TYPES } from './particles/particle';
+import CubeHelixParticle from './particles/cube-particle';
+import SpriteHelixParticle from './particles/sprite-particle';
+
+const THREE = require('three');
 
 /**
  * Helix
  **/
 class Helix {
   constructor(options){
-    this.numberOfPoints = typeof options.numberOfPoints === 'number' ? options.numberOfPoints : 150;
+    this.numberOfPoints = typeof options.numberOfPoints === 'number' ? options.numberOfPoints : 50;
     this.radius = typeof options.radius === 'number' ? options.radius : 4;
-    this.spread = typeof options.spread === 'number' ? options.spread : 0.3;
-    this.density = typeof options.density === 'number' ? options.density : 60;
+    this.spread = typeof options.spread === 'number' ? options.spread : 1.5;
+    this.density = typeof options.density === 'number' ? options.density : 24;
     this.phase = typeof options.phase !== 'number' ? Math.PI : options.phase;
     this.scene = options.scene;
     this.position =
@@ -18,13 +22,13 @@ class Helix {
           x: typeof options.position.x === 'number' ? options.position.x : 0,
           y: typeof options.position.y === 'number' ? options.position.y : 0,
           z: typeof options.position.z === 'number' ? options.position.z : 0,
-          offset: typeof options.position.offset === 'number' ? options.position.offset : 75
+          offset: typeof options.position.offset === 'number' ? options.position.offset : -25
         }
         : {
           x: 0,
           y: 0,
           z: 0,
-          offset: -75
+          offset: -25
         };
     // Named this property revolution instead of rotation because making reference
     // to process of rotation about oneself, rather than rotation with regards to
@@ -51,7 +55,15 @@ class Helix {
         ? animation.startPosition
         : START_POSITIONS.BOTTOM
     };
+    this.particleOptions = {
+      type: options.particleType || PARTICLE_TYPES.CUBE,
+      rotation: {
+        step: 0.01
+      },
+      wobbling: 1
+    };
     this.points = [];
+    this.particles = [];
     this.helix3D = null;
     this.animator = new HelixAnimator();
     this._generatePoints();
@@ -100,20 +112,31 @@ class Helix {
   }
 
   draw(){
+    var helix = this;
     var scene = this.scene;
     var helix3D = new THREE.Object3D();
 
     scene.remove(this.helix3D);
     this.helix3D = helix3D;
 
+    this.particles = [ [], [] ];
     this.points[0].forEach(draw_point);
     this.points[1].forEach(draw_point);
     scene.add(helix3D);
 
     function draw_point(point) {
-      var sprite = new THREE.Sprite(new THREE.SpriteMaterial({color: Math.random() * 0x00ffff}));
-      sprite.position.copy(point);
-      helix3D.add(sprite);
+      if(helix.particleOptions.type === PARTICLE_TYPES.CUBE){
+        helix.particles[0].push(new CubeHelixParticle({
+          parent: helix3D,
+          position: point,
+          rotation: {
+            step: helix.particleOptions.rotation.step
+          },
+          wobbling: helix.particleOptions.wobbling
+        }));
+      }else{
+        helix.particles[0].push(new SpriteHelixParticle({ parent: helix3D, position: point }));
+      }
     }
   }
 
@@ -146,6 +169,10 @@ class Helix {
     this.helix3D.rotation.x += this.revolution.x;
     this.helix3D.rotation.y += this.revolution.y;
     this.helix3D.rotation.z += this.revolution.z;
+    if(this.particleOptions.type === PARTICLE_TYPES.CUBE){
+      this.particles[0].forEach((c) => c.update());
+      this.particles[1].forEach((c) => c.update());
+    }
   }
 }
 

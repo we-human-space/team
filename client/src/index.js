@@ -1,9 +1,10 @@
 // import 'babel-polyfill';
-import THREE from 'three.js';
 import Stats from 'stats.js';
 import Helix from './three/helix/helix';
 import HelixControls from './three/helix/controls';
 import HelixControlsView from './three/helix/controls-view';
+
+const THREE = require('three');
 
 const OrbitControls = require('three-orbit-controls')(THREE);
 
@@ -21,6 +22,14 @@ function main() {
   camera.position.y = 0;
   camera.position.z = 100;
   camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+  var ambientLight = new THREE.AmbientLight(0x0c0c0c);
+  scene.add(ambientLight);
+
+  // var spotLight = new THREE.SpotLight(0xffffff, 2);
+  // spotLight.position.set(0, 60, 10);
+  // spotLight.castShadow = true;
+  // scene.add(spotLight);
 
   // add the output of the renderer to the html element
   document.getElementById('three-container').appendChild(webGLRenderer.domElement);
@@ -49,6 +58,7 @@ function main() {
       stats.update();
     }
     helix.update();
+    // spotLight.lookAt(helix.helix3D);
     // render using requestAnimationFrame
     window.requestAnimationFrame(render);
     webGLRenderer.render(scene, camera);

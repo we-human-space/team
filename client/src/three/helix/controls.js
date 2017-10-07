@@ -9,6 +9,13 @@ class Controls {
       density: helix.density,
       spread: helix.spread,
       phase: helix.phase,
+      particleOptions: {
+        type: helix.particleOptions.type,
+        rotation: {
+          step: helix.particleOptions.rotation.step
+        },
+        wobbling: 0.5
+      },
       animation: {
         animate: false,
         delay: helix.animation.delay,

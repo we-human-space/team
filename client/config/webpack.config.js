@@ -10,7 +10,8 @@ const webpack_config = {
   },
   resolve: {
     alias: {
-      'dat.gui': 'dat.gui/build/dat.gui.min.js'
+      'dat.gui': 'dat.gui/build/dat.gui.min.js',
+      'three': 'three/build/three.min.js'
     }
   },
   cache: {},
