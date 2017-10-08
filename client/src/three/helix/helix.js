@@ -165,6 +165,10 @@ class Helix {
     }
   }
 
+  remove(){
+    this.scene.remove(this.helix3D);
+  }
+
   update(){
     this.helix3D.rotation.x += this.revolution.x;
     this.helix3D.rotation.y += this.revolution.y;

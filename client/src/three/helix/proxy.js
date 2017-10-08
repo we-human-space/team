@@ -46,6 +46,10 @@ class HelixProxy {
     this.helix.redraw(this.model.animation.animate);
   }
 
+  remove() {
+    this.helix.remove();
+  }
+
   updateRevolution(reset, all) {
     if(reset) {
       this.helix.helix3D.rotation.x = 0;

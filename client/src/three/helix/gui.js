@@ -30,6 +30,7 @@ function gui(parent, controls) {
   v.revolution.add(controls.model.revolution, 'reset');
   v.revolution.add(controls.model.revolution, 'resetAll');
   v.add(controls, 'redraw');
+  v.add(controls, 'remove');
   return v;
 }
 
